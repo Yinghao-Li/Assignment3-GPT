@@ -1,8 +1,19 @@
 # Assignment3: GPT
 
+## Motivation
+
+In the landscape of machine learning, models that understand and generate human-like text have revolutionized numerous applications.
+GPT (Generative Pre-trained Transformer) not only highlights the power of pre-trained transformer decoders but also underscores the capability of large-scale models.
+Understanding and getting hands-on with such a model offers a unique perspective into the workings of state-of-the-art machine learning techniques.
+
+By engaging with this assignment, you will strengthen your understanding of the underlying concepts of the GPT architecture, its components like the GELU activation function and multi-head masked self-attention layers, and the techniques used in its inference.
+This is an opportunity to master areas that many students found challenging in Assignment 1.
+This practical exposure is pivotal for anyone keen on diving deep into NLP or aspiring to contribute to the next breakthrough in the field.
+The toy problem of number sorting using GPT will provide a simplified yet meaningful avenue to appreciate the flexibility and prowess of the model beyond just text generation.
+
 ## Task
 For this task, you're required to finalize the code that trains a toy GPT model on a toy number sorting dataset.
-While the training framework and supplementary functions have been pre-established, your primary responsibility is to complete the sections demarcated by:
+While the training framework and supplementary functions have been pre-established, your primary responsibility is to complete the sections enclosed by the TODO blocks:
 
 ```python
 # --- TODO: start of your code ---
