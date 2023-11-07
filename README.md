@@ -51,11 +51,11 @@ Alternatively, you can also use other Python version manager or virtual environm
 
 ## Run
 
-You can also run the code with 
+You can run the code with 
 ```bash
 [CUDA_VISIBLE_DEVICES=...] python run.py --name <your name> --gtid <your GTID> [other arguments...]
 
-# for example, python run.py --name "George Burdell" --gtid 123456789 --lr 1e5
+# for example, python run.py --name "George Burdell" --gtid 123456789
 ```
 
 ## Submission
