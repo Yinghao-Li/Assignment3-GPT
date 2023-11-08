@@ -65,11 +65,11 @@ The log file should track your training status and report the training loss and 
 If your code is correct, the test performance should range from 95% to 100% when the model is trained for 2000 iterations.
 You may also fine-tune the hyperparameters to achieve better performance.
 
-For this assignment, you should submit a `ner.<GivenName>.<FamilyName>.<GTID>.zip` (e.g. `ner.George.Burdell.901234567.zip`) file containing `./src/` and `./log/` folders and all their contents.
+For this assignment, you should submit a `<GivenName>.<FamilyName>.<GTID>.zip` (e.g. `ner.George.Burdell.901234567.zip`) file containing `./src/` and `./log/` folders and all their contents.
 **Do not include `./data/`, `.gitignore`, `LICENSE` or other files or folders.**
 If your using Unix-like systems, you can run
 ```bash
-zip -r ner.<GivenName>.<FamilyName>.<GTID>.zip log/ src/
+zip -r <GivenName>.<FamilyName>.<GTID>.zip log/ src/
 ```
 
 ## Reference
