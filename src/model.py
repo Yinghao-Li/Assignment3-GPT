@@ -25,9 +25,8 @@ class GELU(nn.Module):
         Returns the GELU activation of the input x.
         """
         # --- TODO: start of your code ---
-
+        return 0.5 * x * (1.0 + torch.tanh(math.sqrt(2.0 / math.pi) * (x + 0.044715 * torch.pow(x, 3.0))))
         # --- TODO: end of your code ---
-        raise NotImplementedError
 
 
 class CausalSelfAttention(nn.Module):
@@ -63,9 +62,27 @@ class CausalSelfAttention(nn.Module):
         Input & output shape: (batch_size, sequence_length, d_model)
         """
         # --- TODO: start of your code ---
+        batch_size, seq_len, d_model = x.size()  # batch size, sequence length, embedding dimensionality (d_model)
 
+        # calculate query, key, values for all heads in batch and move head forward to be the batch dim
+        q, k, v = self.input_projection(x).split(self.d_model, dim=2)
+        k = k.view(batch_size, seq_len, self.n_head, d_model // self.n_head).transpose(1, 2)
+        q = q.view(batch_size, seq_len, self.n_head, d_model // self.n_head).transpose(1, 2)
+        v = v.view(batch_size, seq_len, self.n_head, d_model // self.n_head).transpose(1, 2)
+
+        # causal self-attention;
+        att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
+        att = att.masked_fill(self.bias[:, :, :seq_len, :seq_len] == 0, float("-inf"))
+        att = F.softmax(att, dim=-1)
+        att = self.attn_dropout(att)
+        y = att @ v
+        y = y.transpose(1, 2).contiguous().view(batch_size, seq_len, d_model)
+
+        # output projection
+        y = self.res_dropout(self.output_projection(y))
+
+        return y
         # --- TODO: end of your code ---
-        raise NotImplementedError
 
 
 class Block(nn.Module):
@@ -224,8 +241,14 @@ class GPT(nn.Module):
 
         for _ in range(max_new_tokens):
             # --- TODO: start of your code ---
-
+            # if the sequence context is growing too long we must crop it at block_size
+            idx_cond = ids if ids.size(1) <= self.seq_length else ids[:, -self.seq_length :]
+            # forward the model to get the logits for the index in the sequence
+            logits, _ = self(idx_cond)
+            # get the idx for the next token using greedy decoding
+            idx_next = torch.argmax(logits[:, -1, :], dim=-1, keepdim=True)
+            # append sampled index to the running sequence and continue
+            ids = torch.cat((ids, idx_next), dim=1)
             # --- TODO: end of your code ---
-            pass
 
         return ids
